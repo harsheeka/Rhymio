@@ -1,10 +1,11 @@
-require('dotenv').config(); //load environment variables from .env file 
 const express = require('express');
 const mongoose = require('mongoose'); 
+require('dotenv').config(); //load environment variables from .env file (must be called before accessing env variables)
 const connectDB = require('./config/database'); //connect to database 
 
 
 const app = express();
+const PORT = process.env.PORT;
 
 app.use(express.json());
 
@@ -12,12 +13,10 @@ app.get('/', (req,res)=>{
     res.send('Hello World');
 })
 
-// app.listen(3000, ()=> {
-//     console.log('Server is listening on port 3000');
-// })
+
 connectDB().then(() => {
   console.log("database connected sucessfully");
-  app.listen(3000, () => {
+  app.listen(PORT, () => {
     console.log("Server is listening");
   }); 
 }
